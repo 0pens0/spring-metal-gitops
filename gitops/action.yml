@@ -24,7 +24,7 @@ jobs:
           # Install Tanzu resource plugin
           tanzu config set env.TANZU_CLI_ADDITIONAL_PLUGIN_DISCOVERY_IMAGES_TEST_ONLY harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
           tanzu config set env.TANZU_CLI_PLUGIN_DISCOVERY_IMAGE_SIGNATURE_VERIFICATION_SKIP_LIST harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
-          tanzu plugin install resource build
+          tanzu plugin install resource build space project app
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Deploy
