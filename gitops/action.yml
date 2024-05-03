@@ -1,74 +1,39 @@
----
-resources:
-- name: gitops-project-source
-  type: git
-  icon: gitlab
-  source:
-    uri: https://github.com/0pens0/spring-metal-gitops # <-- Add URI for git repo
-    branch: master # <-- Add git branch to sync with
-    private_key: b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZWQyNTUxOQAAACBTB7O8RPGgUXDxXB+5XPQhDwFQ4U4wP2Fl5Np3sQG5SAAAAJgz2U2+M9lNvgAAAAtzc2gtZWQyNTUxOQAAACBTB7O8RPGgUXDxXB+5XPQhDwFQ4U4wP2Fl5Np3sQG5SAAAAEAIVUpCz5xKX4Y36AkXEzcaX8YJD5KhOm/SN9bDvkfsmFMHs7xE8aBRcPFcH7lc9CEPAVDhTjA/YWXk2nexAblIAAAAEW9wZW5zb0B2bXdhcmUuY29tAQIDBA== # <-- Add private key for pulling from git repository
-
-- name: ci-image
-  type: registry-image
-  icon: docker
-  source:
-    repository: harbor-repo.vmware.com/packaging-and-installation/test-assets/ci-image
-    tag: latest
+name: Deploy gitops project
+run-name: ${{ github.actor }} deploying
+on:
+  push:
+    branches:
+      - "main"
 jobs:
-- name: tanzu-deploy
-  plan:
-  - in_parallel:
-    - get: ci-image
-    - get: gitops-project-source
-      trigger: true
-  - put: gitops-project-source
-    params:
-      repository: gitops-project-source
-      status: running
-  - task: run-tanzu-deploy
-    image: ci-image
-    config:
-      inputs:
-        - name: gitops-project-source
-      platform: linux
-      params:
-        STACK_NAME: # <-- specify stack name
-        TANZU_API_TOKEN: # <-- specify API Token for org (can be obtained from console-stg.cloud.vmware.com for internal users)
-      run:
-        path: /bin/bash
-        args:
-        - -exc
-        - |
-          # Install Tanzu CLI and rinitialize
-          curl -Lo tanzu-framework.tar.gz https://github.com/vmware-tanzu/tanzu-cli/releases/download/v1.3.0-alpha.3/tanzu-cli-linux-amd64.tar.gz
+  gitops-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Tanzu CLI
+        run: |
+          # Install Tanzu CLI and initialize
+          TANZU_CLI_VERSION=v1.3.0-rc.0
+          curl -Lo tanzu-framework.tar.gz https://github.com/vmware-tanzu/tanzu-cli/releases/download/${TANZU_CLI_VERSION}/tanzu-cli-linux-amd64.tar.gz
           tar -xf tanzu-framework.tar.gz
-          mv v1.3.0-alpha.3/tanzu-cli-linux_amd64 /usr/local/bin/tanzu
+          mv ${TANZU_CLI_VERSION}/tanzu-cli-linux_amd64 /usr/local/bin/tanzu
           tanzu ceip-participation set false
           tanzu config eula accept
           tanzu init
           tanzu version
-
+      - name: Install deploy and build plugin
+        run: |
           # Install Tanzu resource plugin
           tanzu config set env.TANZU_CLI_ADDITIONAL_PLUGIN_DISCOVERY_IMAGES_TEST_ONLY harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
           tanzu config set env.TANZU_CLI_PLUGIN_DISCOVERY_IMAGE_SIGNATURE_VERIFICATION_SKIP_LIST harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
-          tanzu plugin install resource
-
-          tanzu context create deploy-target --endpoint https://$STACK_NAME.stacks.bluesky.tmc-dev.cloud.vmware.com --type tanzu --staging=true
-
-          cd gitops-project-source/gitops-project
-          tanzu deploy -y --diff
-  on_abort:
-    put: gitops-project-source
-    params:
-      repository: gitops-project-source
-      status: cancelled
-  on_failure:
-    put: gitops-project-source
-    params:
-      repository: gitops-project-source
-      status: failed
-  on_success:
-    put: gitops-project-source
-    params:
-      repository: gitops-project-source
-      status: success
+          tanzu plugin install resource build
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Deploy
+        env:
+          TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: |
+          tanzu login --endpoint ${ENDPOINT}
+          tanazu project use tanzu-platform-demo
+          tanzu space use gitops-metal-space
+          cd gitops-project
+          tanzu deploy --from-build $(tanzu build) -y --diff
+      - run: echo "🍏 This job's status is ${{ job.status }}."
