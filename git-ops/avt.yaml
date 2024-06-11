@@ -1,0 +1,28 @@
+---
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: AvailabilityTarget
+metadata:
+  name: us-availibility-target
+spec:
+  affinity:
+    clusterAffinity:
+      clusterSelectorTerms:
+        - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+                - us-west-1
+---
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: AvailabilityTarget
+metadata:
+  name: eu-availibility-target
+spec:
+  affinity:
+    clusterAffinity:
+      clusterSelectorTerms:
+        - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+                - eu-central-1
