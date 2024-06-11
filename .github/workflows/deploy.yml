@@ -44,5 +44,7 @@ jobs:
           tanzu build config --build-plan-source-type=file --build-plan-source platform-config.yml --containerapp-registry harbor.vmtanzu.com/openso-tap-apps/{name}
           tanzu build config view
           docker login harbor.vmtanzu.com -u openso -p  ${{ secrets.RERGISTRY_PASS}}
+          tanzu project use ${{ env.PROJECT_NAME }}
+          tanzu space use ${{ env.SPACE_NAME }}
           tanzu deploy -y --diff
       - run: echo "🍏 This job's status is ${{ job.status }}."
