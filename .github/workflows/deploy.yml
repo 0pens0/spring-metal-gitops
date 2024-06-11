@@ -41,7 +41,6 @@ jobs:
           ENDPOINT: ${{ env.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
           tanzu login --endpoint ${ENDPOINT}
-
           tanzu build config --build-plan-source-type=file --build-plan-source platform-config.yml --containerapp-registry harbor.vmtanzu.com/openso-tap-apps/{name}
           tanzu build config view
           tanzu context list --wide
