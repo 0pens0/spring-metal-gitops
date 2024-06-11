@@ -11,6 +11,6 @@ spec:
       - name: networking
   availabilityTargets:
   - name: eu-availibility-target
-    replicas: 1
+    replicas: 2
   updateStrategy:
     type: Recreate
