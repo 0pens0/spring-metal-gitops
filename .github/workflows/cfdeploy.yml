@@ -26,13 +26,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Deploy
-        env:
-          TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
-          ENDPOINT: ${{ secrets.API_ENDPOINT || 'console.cloud.vmware.com' }}
-          REGISTRY: ${{ secrets.REGISTRY_ENDPOINT }}
-          REGISTRY_PASS: ${{ secrets.RERGISTRY_PASS}}
         run: |
           cf target
-          docker login ${REGISTRY} -u openso -p  ${REGISTRY_PASS}
-
+          git clone https://github.com/0pens0/spring-metal
+          cd spring-metal
+          mvn clean install
+          cf push
+          
+          
       - run: echo "🍏 This job's status is ${{ job.status }}."
