@@ -31,7 +31,7 @@ jobs:
           git clone https://github.com/0pens0/spring-metal
           cd spring-metal
           java -version
-          ./mvnw package
+          ./mvnw clean install
           cf push
 
           
