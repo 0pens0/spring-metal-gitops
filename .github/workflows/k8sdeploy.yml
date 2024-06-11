@@ -34,7 +34,6 @@ jobs:
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
           ENDPOINT: ${{ secrets.API_ENDPOINT || 'console.cloud.vmware.com' }}
-          PROJECT_NAME: ${{ env.PROJECT_NAME }}
         run: |
           tanzu login --endpoint ${ENDPOINT}
           tanzu build config --build-plan-source-type=file --build-plan-source platform-config.yml --containerapp-registry harbor.vmtanzu.com/openso-tap-apps/{name}
@@ -42,7 +41,7 @@ jobs:
           tanzu context list --wide
           tanzu project list
           docker login harbor.vmtanzu.com -u openso -p  ${{ secrets.RERGISTRY_PASS}}
-          tanzu project use ${PROJECT_NAME}
+          tanzu project use ${{ secrets.PROJECT_NAME }}
           tanzu space list
           tanzu space use ${{ secrets.SPACE_NAME }}
           tanzu deploy -y --diff
