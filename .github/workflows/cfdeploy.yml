@@ -31,10 +31,9 @@ jobs:
           git clone https://github.com/0pens0/spring-metal
           cd spring-metal
           java -version
-          update-java-alternatives --list
           sudo update-java-alternatives --set /usr/lib/jvm/java-1.17.0-openjdk-amd64
-          #./mvnw clean install
-          #cf push
+          ./mvnw clean install
+          cf push
 
           
       - run: echo "🍏 This job's status is ${{ job.status }}."
