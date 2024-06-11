@@ -35,7 +35,6 @@ jobs:
           git clone https://github.com/0pens0/spring-metal
           cd spring-metal
           mvn package
-          cd git-ops
           cf push
           cf apps
 
