@@ -13,7 +13,7 @@ jobs:
       - id: install-tanzu-cli
         uses: ./.github/actions/tanzu-cli/
         with:
-          version: v1.3.0-rc.0
+          version: v1.3.0
       - id: install-tanzu-cli-resource-plugin
         uses: ./.github/actions/tanzu-cli-plugins/
         with:
@@ -29,7 +29,7 @@ jobs:
       - id: login-tanzu
         uses: ./.github/actions/tanzu-login/
         with:
-          api-token: ${{ secrets.API_TOKEN }}
+          api-token: ${{ tanzu.API_TOKEN }}
       - name: Build application
         id: build-app
         run: |
@@ -42,9 +42,9 @@ jobs:
           path: gitops-repo
       - name: Promote application
         env:
-          APP_NAME: 'My cool new app'
-          PROJECT: ${{ secrets.PROJECT_NAME }}
-          SPACE: ${{ secrets.SPACE_NAME }}
+          APP_NAME: 'spring-metal-gitops'
+          PROJECT: ${{ tanzu.PROJECT_NAME }}
+          SPACE: ${{ tanzu.SPACE_NAME }}
           OUTPUT: ${{ steps.build-app.outputs.buildFolder }}
         run: |
             cd gitops-repo
