@@ -1,0 +1,16 @@
+---
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Space
+metadata:
+  name: spring-metal-gitops
+spec:
+  template:
+    spec:
+      profiles:
+      - name: spring-apps
+      - name: networking
+  availabilityTargets:
+  - name: eu-availibility-target
+    replicas: 1
+  updateStrategy:
+    type: Recreate
