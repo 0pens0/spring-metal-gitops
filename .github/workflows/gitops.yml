@@ -36,5 +36,7 @@ jobs:
           tanzu login --endpoint ${ENDPOINT}
           cd git-ops
           tanzu deploy -y --diff
+          tanzu service bind PreProvisionedService/genai ContainerApp/spring-metal --as ai
+          tanzu service bind PreProvisionedService/pgvector ContainerApp/spring-metal --as db
           
       - run: echo "🍏 This job's status is ${{ job.status }}."
