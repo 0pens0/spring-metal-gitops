@@ -29,7 +29,7 @@ jobs:
       - id: login-tanzu
         uses: ./.github/actions/tanzu-login/
         with:
-          api-token: ${{ tanzu.API_TOKEN }}
+          api-token: ${{ secrets.API_TOKEN }}
       - name: Build application
         id: build-app
         run: |
@@ -43,8 +43,8 @@ jobs:
       - name: Promote application
         env:
           APP_NAME: 'spring-metal-gitops'
-          PROJECT: ${{ tanzu.PROJECT_NAME }}
-          SPACE: ${{ tanzu.SPACE_NAME }}
+          PROJECT: ${{ env.PROJECT_NAME }}
+          SPACE: ${{ env.SPACE_NAME }}
           OUTPUT: ${{ steps.build-app.outputs.buildFolder }}
         run: |
             cd gitops-repo
