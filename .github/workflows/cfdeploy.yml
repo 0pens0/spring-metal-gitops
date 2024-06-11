@@ -36,6 +36,7 @@ jobs:
           cd spring-metal
           mvn package
           cf push
+          cf apps
 
           
       - run: echo "🍏 This job's status is ${{ job.status }}."
