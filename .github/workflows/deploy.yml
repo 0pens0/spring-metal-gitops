@@ -30,6 +30,7 @@ jobs:
           # tanzu config set env.TANZU_CLI_PLUGIN_DISCOVERY_IMAGE_SIGNATURE_VERIFICATION_SKIP_LIST harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
           tanzu plugin install --group vmware-tanzu/platform-engineer
           tanzu plugin install --group vmware-tanzu/app-developer
+          
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Deploy
@@ -40,5 +41,6 @@ jobs:
           tanzu login --endpoint ${ENDPOINT}
 
           # cd gitops-project
+          tanzu build config view
           tanzu deploy -y --diff
       - run: echo "🍏 This job's status is ${{ job.status }}."
