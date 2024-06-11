@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} changes
 on:
   push: # This Workflow should be added to the repository with application code
     branches:
-      - "main"
+      - "master"
 jobs:
   gitops-deploy:
     runs-on: ubuntu-latest
