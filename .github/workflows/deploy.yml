@@ -38,6 +38,6 @@ jobs:
         run: |
           tanzu login --endpoint ${ENDPOINT}
 
-          cd gitops-project
+          # cd gitops-project
           tanzu deploy -y --diff
       - run: echo "🍏 This job's status is ${{ job.status }}."
