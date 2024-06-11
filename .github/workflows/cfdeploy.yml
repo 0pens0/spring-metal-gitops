@@ -31,6 +31,7 @@ jobs:
           cf target
           git clone https://github.com/0pens0/spring-metal
           cd spring-metal
+          java -version
           mvn clean install
           cf push
 
