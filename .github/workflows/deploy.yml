@@ -12,8 +12,12 @@ jobs:
         run: |
           # Install Tanzu CLI and initialize
           TANZU_CLI_VERSION=v1.3.0-rc.0
-          curl -Lo tanzu-framework.tar.gz https://github.com/vmware-tanzu/tanzu-cli/releases/download/${TANZU_CLI_VERSION}/tanzu-cli-linux-amd64.tar.gz
-          tar -xf tanzu-framework.tar.gz
+          curl -Lo tanzu-cli-linux-amd64.tar.gz https://github.com/vmware-tanzu/tanzu-cli/releases/download/${TANZU_CLI_VERSION}/tanzu-cli-linux-amd64.tar.gz
+          curl -Lo tanzu-cli-binaries-checksums.txt https://github.com/vmware-tanzu/tanzu-cli/releases/download/${TANZU_CLI_VERSION}/tanzu-cli-binaries-checksums.txt
+          
+          if [ "$(cat tanzu-cli-binaries-checksums.txt | grep tanzu-cli-linux-amd64.tar.gz)" != "$(sha256sum tanzu-cli-linux-amd64.tar.gz)" ]; then echo "Checksum does not match"; exit 1; fi
+          
+          tar -xf tanzu-cli-linux-amd64.tar.gz
           mv ${TANZU_CLI_VERSION}/tanzu-cli-linux_amd64 /usr/local/bin/tanzu
           tanzu ceip-participation set false
           tanzu config eula accept
@@ -24,16 +28,16 @@ jobs:
           # Install Tanzu resource plugin
           tanzu config set env.TANZU_CLI_ADDITIONAL_PLUGIN_DISCOVERY_IMAGES_TEST_ONLY harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
           tanzu config set env.TANZU_CLI_PLUGIN_DISCOVERY_IMAGE_SIGNATURE_VERIFICATION_SKIP_LIST harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
-          tanzu plugin install resource build
+          tanzu plugin install --target global resource
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Deploy
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
+          ENDPOINT: ${{ secrets.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
           tanzu login --endpoint ${ENDPOINT}
-          tanazu project use tanzu-platform-demo
-          tanzu space use gitops-metal-space
+
           cd gitops-project
-          tanzu deploy --from-build $(tanzu build) -y --diff
+          tanzu deploy -y --diff
       - run: echo "🍏 This job's status is ${{ job.status }}."
