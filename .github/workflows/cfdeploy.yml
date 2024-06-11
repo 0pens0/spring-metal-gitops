@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Deploy
         run: |
+          export JAVA_HOME=/usr/lib/jvm/java-1.17.0-openjdk-amd64  
           cf target
           git clone https://github.com/0pens0/spring-metal
           cd spring-metal
