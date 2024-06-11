@@ -45,10 +45,9 @@ jobs:
           tanzu build config view
           tanzu context list --wide
           tanzu project list
-          tanzu space list
-
           docker login harbor.vmtanzu.com -u openso -p  ${{ secrets.RERGISTRY_PASS}}
           tanzu project use ${{ secrets.PROJECT_NAME }}
+          tanzu space list
           tanzu space use ${{ secrets.SPACE_NAME }}
           tanzu deploy -y --diff
       - run: echo "🍏 This job's status is ${{ job.status }}."
