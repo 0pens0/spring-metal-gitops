@@ -24,6 +24,7 @@ jobs:
       - name: Install tanzu plugins
         run: |
           tanzu plugin install resource
+          tanzu plugin install services
 
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -38,5 +39,5 @@ jobs:
           tanzu deploy -y --diff
           tanzu service bind PreProvisionedService/genai ContainerApp/spring-metal --as ai
           tanzu service bind PreProvisionedService/pgvector ContainerApp/spring-metal --as db
-          
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
