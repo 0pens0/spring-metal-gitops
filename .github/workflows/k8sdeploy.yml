@@ -41,7 +41,7 @@ jobs:
           tanzu context list --wide
           tanzu project list
           docker login harbor.vmtanzu.com -u openso -p  ${{ secrets.RERGISTRY_PASS}}
-          tanzu project use ${{ secrets.PROJECT_NAME }}
+          tanzu project use ${{ env.PROJECT_NAME }}
           tanzu space list
           tanzu space use ${{ secrets.SPACE_NAME }}
           tanzu deploy -y --diff
