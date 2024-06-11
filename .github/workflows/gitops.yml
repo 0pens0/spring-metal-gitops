@@ -25,7 +25,9 @@ jobs:
         run: |
           tanzu plugin install resource
           tanzu plugin install services
-
+          tanzu plugin install project
+          tanzu plugin install space
+          
       - name: Check out repository code
         uses: actions/checkout@v4
 
@@ -35,6 +37,8 @@ jobs:
           ENDPOINT: ${{ secrets.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
           tanzu login --endpoint ${ENDPOINT}
+          tanzu project use tanzu-platform-demo
+          tanzu space use spring-metal-gitops
           cd git-ops
           tanzu deploy -y --diff
           tanzu service bind PreProvisionedService/genai ContainerApp/spring-metal --as ai
