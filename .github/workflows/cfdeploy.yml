@@ -19,10 +19,15 @@ jobs:
 
 
       - name: Connect to CF API
+        env:
+          CF_API: ${{ secrets.CF_API_ENDPOINT }}
+          CF_PASS: ${{ secrets.CF_API_TOKEN }}
+          CF_ORG: ${{ secrets.CF_ORG }}
+          CF_SPACE: ${{ secrets.CF_SPACE_NAME }}
         run: |
-          cf api ${{ secrets.CF_API_ENDPOINT }} --skip-ssl-validation
-          cf login -u admin -p ${{ secrets.CF_API_TOKEN }} -o tanzu-platform-demo
-          cf target -s ${{ secrets.CF_SPACE_NAME }}
+          cf api ${CF_API}  --skip-ssl-validation
+          cf login -u admin -p ${CF_PASS} -o ${CF_ORG}
+          cf target -s ${CF_SPACE}
 
       - name: Check out repository code
         uses: actions/checkout@v4
