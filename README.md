@@ -1,7 +1,6 @@
 # Demo of Tanzu platform Gitops with Github
 
 ![Tanzu](https://img.shields.io/badge/tanzu-platform-purple.svg)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/0pens0/spring-metal-gitops/actions/workflows)
 
 This repository contains artifacts necessary to run Gitops loop based on Github actions for Tanzu Platform.
 
