@@ -1,4 +1,4 @@
-name: Deploy gitops project
+name: TPK8S Gitops
 run-name: ${{ github.actor }} deploying
 on:
   push:
