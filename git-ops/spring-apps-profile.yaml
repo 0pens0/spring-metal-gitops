@@ -1,0 +1,29 @@
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Profile
+metadata:
+  name: spring-apps
+  namespace: default
+spec:
+  requiredCapabilities:
+  - name: observability.tanzu.vmware.com
+  - name: servicemesh-observability.tanzu.vmware.com
+  - name: k8sgateway.tanzu.vmware.com
+  - name: package-management.tanzu.vmware.com
+  - name: tanzu-servicebinding.tanzu.vmware.com
+  - name: servicebinding.tanzu.vmware.com
+  - name: crossplane.tanzu.vmware.com
+  - name: certificates.tanzu.vmware.com
+  - name: container-app.tanzu.vmware.com
+  traits:
+  - alias: carvel-package-installer.tanzu.vmware.com
+    name: carvel-package-installer.tanzu.vmware.com
+    values:
+      inline:
+        carvel-package-installer:
+          serviceAccountName: carvel-package-installer
+  - alias: observability.tanzu.vmware.com
+    name: observability.tanzu.vmware.com
+    values:
+      inline:
+        observability-traits.tanzu.vmware.com:
+          enabled: true

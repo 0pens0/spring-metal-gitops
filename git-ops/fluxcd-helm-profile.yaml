@@ -1,0 +1,17 @@
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Profile
+metadata:
+  name: fluxcd-helm.tanzu.vmware.com
+  namespace: default
+spec:
+  description: With the FluxCD Helm profile, you can leverage FluxCD's Helm and Source
+    controllers  to deploy pre-built applications packaged as Helm Charts, stored
+    in Helm Repositories,  using the GitOps flow to a space.
+  requiredCapabilities:
+  - name: fluxcd-helm.tanzu.vmware.com
+  - name: fluxcd-source.tanzu.vmware.com
+  traits:
+  - alias: fluxcd-helmrelease-installer
+    name: fluxcd-helmrelease-installer.tanzu.vmware.com
+    values:
+      inline: null
