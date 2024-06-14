@@ -7,7 +7,7 @@ This repository contains artifacts necessary to run Gitops loop based on Github 
 
 ## Architecture
 
-![Alt text](https://github.com/0pens0/spring-metal-gitops/blob/main/image.png?raw=true "Spring-metal AI topology")
+![Alt text](https://github.com/0pens0/spring-metal-gitops/blob/master/image.png?raw=true "Spring-metal AI topology")
 
 ## Prerequisites
 - Ensure you have access to Tanzu platform for K8s
