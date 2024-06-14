@@ -12,7 +12,7 @@ spec:
   - group: gateway.networking.k8s.io
     kind: Gateway
     name: default-gateway
-    sectionName: http-spring-metal-demo-gitops
+    sectionName: http-podinfo
   rules:
   - backendRefs:
     - group: ""
