@@ -35,6 +35,6 @@ jobs:
         run: |
           tanzu login --endpoint ${ENDPOINT}
           cd git-ops
-          tanzu deploy --only -y
+          tanzu deploy --only . -y
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
