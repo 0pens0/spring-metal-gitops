@@ -1,0 +1,54 @@
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Profile
+metadata:
+  name: networking
+  namespace: default
+spec:
+  requiredCapabilities:
+  - name: k8sgateway.tanzu.vmware.com
+  - name: egress.tanzu.vmware.com
+  - name: certificates.tanzu.vmware.com
+  - name: multicloud-ingress.tanzu.vmware.com
+  traits:
+  - alias: egress.tanzu.vmware.com
+    name: egress.tanzu.vmware.com
+    values:
+      inline:
+        egress.tanzu.vmware.com:
+          open: true
+  - alias: multicloud-cert-manager.tanzu.vmware.com
+    name: multicloud-cert-manager.tanzu.vmware.com
+    values:
+      inline:
+        multicloud-cert-manager.tanzu.vmware.com:
+          duration: 87600h
+          name: default-issuer
+          privateKey:
+            algorithm: ECDSA
+            size: 384
+          renewBefore: 2160h
+          selfSigned:
+            commonName: ca.company.biz
+            secretName: root-secret
+  - alias: multicloud-ingress.tanzu.vmware.com
+    name: multicloud-ingress.tanzu.vmware.com
+    values:
+      inline:
+        multicloud-ingress.tanzu.vmware.com:
+          domain: vmtanzu.net
+          gslb:
+            authentication:
+              credentialRef: 8372cfe1511795dccab5cf926b2beea2
+            dns:
+              zoneId: Z01466373POHMJHH2K73L
+          listenerTemplates:
+          - namePrefix: https-
+            port: 443
+            protocol: HTTPS
+            tls:
+              secretRef: prod-certs
+          - namePrefix: http-
+            port: 80
+            protocol: HTTP
+          name: default-gateway
+          useClusterIssuer: false
