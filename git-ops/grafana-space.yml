@@ -1,0 +1,19 @@
+---
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Space
+metadata:
+  name: grafana-helm-demo
+spec:
+  template:
+    spec:
+      profiles:
+      - name: spring-apps
+      - name: networking
+      - name: fluxcd-helm.tanzu.vmware.com
+  availabilityTargets:
+  - name: eu-availibility-target
+    replicas: 1
+  - name: us-availibility-target
+    replicas: 1
+  updateStrategy:
+    type: Recreate

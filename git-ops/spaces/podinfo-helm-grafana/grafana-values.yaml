@@ -1,0 +1,9 @@
+# grafana-values.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-values
+type: Opaque
+stringData:
+  values.yaml: |
+    replicaCount: 3
