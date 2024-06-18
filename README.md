@@ -17,6 +17,7 @@ Get in to secrets and vars configuration in the repository level >> https://gith
 
 TPK8S parameters:
 
+- TANZU_CLI_VERSION = tanzu cli version to use
 - API_ENDPOINT = the api end point information >> api.tanzu.cloud.vmware.com
 - API_TOKEN = tanzu api token to connect to TPK8S service
 
