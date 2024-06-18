@@ -13,3 +13,9 @@ This repository contains artifacts necessary to run Gitops loop based on Github 
 - Ensure you have access to Tanzu platform for K8s
 - Confiogure the paratemers under the repo settings
 
+Get in to secrets and vars configuration in the repository level >> https://github.com/0pens0/spring-metal-gitops/settings/secrets/actions and configure the following:
+
+TPK8S parameters:
+    - API_ENDPOINT = the api end point information and org ID >> https://api.tanzu.cloud.vmware.com/org/ org-id
+    - API_TOKEN = tanzu api token to connect to TPK8S service
+
