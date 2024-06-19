@@ -2,7 +2,7 @@
 apiVersion: spaces.tanzu.vmware.com/v1alpha1
 kind: Space
 metadata:
-  name: spring-metal-gitops
+  name: spring-metal-stage
 spec:
   template:
     spec:
