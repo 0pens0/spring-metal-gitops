@@ -28,6 +28,16 @@ jobs:
 
       - name: Check out repository code
         uses: actions/checkout@v4
+      
+      - name: Extract services secrets
+        env:
+          GENAI_SECRET: ${{secrets.GENAI_SECRET}}
+          PGVECTOR_SECRET: ${{secrets.PGVECTOR_SECRET}}
+        run: |
+          'echo "$GENAI_SECRET"' > genai-secret.yml
+          'echo "PGVECTOR_SECRET"' > pgvector-secret.yml 
+          mv genai-secret.yml spaces/spring-metal-dev
+          mv pgvector-secret.yml spaces/spring-metal-dev
 
       - name: Deploy resources to Tanzu Project
         env:
@@ -35,20 +45,7 @@ jobs:
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
           tanzu login --endpoint ${ENDPOINT}
-          mkdir .secrets
-          cd .secrets
-          touch pgvector-secret.yml
-          touch genai-secret.yml
-          echo ${{secrets.GENAI_SECRET}} > genai-secret.yml
-          cat genai-secret.yml
-          echo ${{secrets.PGVECTOR_SECRET}} > pgvector-secret.yml
-          cat pgvector-secret.yml
-          cd ../git-ops
-          mv ../.secrets/genai-secret.yml spaces/spring-metal-dev
-          mv ../.secrets/genai-secret.yml spaces/spring-metal-stage
-          mv ../.secrets/pgvector-secret.yml spaces/spring-metal-dev
-          mv ../.secrets/pgvector-secret.yml spaces/spring-metal-stage
-
+          cd git-ops
           tanzu deploy --patch -y
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
