@@ -35,7 +35,18 @@ jobs:
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
           tanzu login --endpoint ${ENDPOINT}
-          cd git-ops
+          mkdir .secrets
+          cd .secrets
+          touch pgvector-secret.yml
+          touch genai-secret.yml
+          echo ${{secrets.GENAI_SECRET}} > genai-secret.yml
+          echo ${{secrets.PGVECTOR_SECRET}} > pgvector-secret.yml
+          cd ../git-ops
+          mv ../.secrets/genai-secret.yml spaces/spring-metal-dev
+          mv ../.secrets/genai-secret.yml spaces/spring-metal-stage
+          mv ../.secrets/pgvector-secret.yml spaces/spring-metal-dev
+          mv ../.secrets/pgvector-secret.yml spaces/spring-metal-stage
+
           tanzu deploy --patch -y
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
