@@ -31,9 +31,9 @@ jobs:
       
       - name: Extract services secrets
         env:
-          GENAI_SECRET: '${{vars.GENAI}}'
+          GENAI_SECRET: '${{secrets.GENAI_SECRET}}'
         run: |
-          echo $GENAI_SECRET
+          echo $GENAI_SECRET > genai-secret.yml
           mv genai-secret.yml spaces/spring-metal-dev
 
       - name: Deploy resources to Tanzu Project
