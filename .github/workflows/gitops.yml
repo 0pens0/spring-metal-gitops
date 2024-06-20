@@ -31,13 +31,10 @@ jobs:
       
       - name: Extract services secrets
         env:
-          GENAI_SECRET: ${{secrets.GENAI_SECRET}}
-          PGVECTOR_SECRET: ${{secrets.PGVECTOR_SECRET}}
+          GENAI_SECRET: ${{vars.GENAI}}
         run: |
           'echo "$GENAI_SECRET"' > genai-secret.yml
-          'echo "PGVECTOR_SECRET"' > pgvector-secret.yml 
           mv genai-secret.yml spaces/spring-metal-dev
-          mv pgvector-secret.yml spaces/spring-metal-dev
 
       - name: Deploy resources to Tanzu Project
         env:
