@@ -29,12 +29,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       
-      - name: Extract services secrets
-        env:
-          GENAI_SECRET: '${{vars.GENAI}}'
-        run: |
-          echo $GENAI_SECRET
-          echo $GENAI_SECRET > git-ops/spaces/spring-metal-dev/genai-service.yml
+        #name: Extract services secrets
+        #env:
+        #  GENAI_SECRET: '${{vars.GENAI}}'
+        #run: |
+        #  echo $GENAI_SECRET
+        #  echo $GENAI_SECRET > git-ops/spaces/spring-metal-dev/genai-service.yml
 
       - name: Deploy resources to Tanzu Project
         env:
