@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"name": "spring-metal",
+			"path": "../../../spring-metal"
+		},
+		{
+			"name": "spring-metal-gitops",
+			"path": "../.."
+		},
+		{
+			"name": "openso-notes",
+			"path": "../../../openso-notes"
+		},
+		{
+			"path": "../../../spring-metal-dev"
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}
