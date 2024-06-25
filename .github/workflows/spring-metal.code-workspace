@@ -7,6 +7,9 @@
 		{
 			"name": "openso-notes",
 			"path": "../../../openso-notes"
+		},
+		{
+			"path": "../../../spring-metal"
 		}
 	],
 	"settings": {
