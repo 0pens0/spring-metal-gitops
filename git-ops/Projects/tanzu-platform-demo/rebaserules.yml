@@ -1,0 +1,10 @@
+---
+apiVersion: kapp.k14s.io/v1alpha1
+kind: Config
+
+rebaseRules:
+- path: [metadata, annotations, ingress.tanzu.vmware.com/last-seen-fqdn]
+  type: copy
+  sources: [new, existing]
+  resourceMatchers:
+  - apiVersionKindMatcher: {apiVersion: spaces.tanzu.vmware.com/v1alpha1, kind: Space}
