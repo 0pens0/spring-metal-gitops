@@ -49,10 +49,8 @@ jobs:
           ls
           envsubst < genai-external-serivce.yaml > genai-external-serivce-encrypted.yaml
           envsubst < pgvector-external-service.yaml > pgvector-external-service-encrypted.yaml
-          cd ..
-          mv genai-external-serivce-encrypted.yaml git-ops/spaces/spring-metal-dev
-          mv pgvector-external-service-encrypted.yaml git-ops/spaces/spring-metal-dev
-          cat git-ops/spaces/spring-metal-dev/genai-external-serivce-encrypted.yaml
+          pwd
+          cat genai-external-serivce-encrypted.yaml
 
 
 
