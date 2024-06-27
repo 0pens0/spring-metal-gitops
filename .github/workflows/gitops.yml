@@ -48,9 +48,9 @@ jobs:
           cd .secrets
           ls
           envsubst < genai-external-serivce.yaml > genai-external-serivce-encrypted.yaml
-          envsubst < pgvector-external-serivce.yaml > pgvector-external-serivce-encrypted.yaml
+          envsubst < pgvector-external-service.yaml > pgvector-external-service-encrypted.yaml
           cat genai-external-serivce-encrypted.yaml
-          cat pgvector-external-serivce-encrypted.yaml
+          cat pgvector-external-service-encrypted.yaml
 
 
       - name: Deploy resources to Tanzu Project
