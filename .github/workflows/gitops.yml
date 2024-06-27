@@ -38,6 +38,20 @@ jobs:
         #  echo $GENAI_SECRET
         #  echo $GENAI_SECRET > git-ops/spaces/spring-metal-dev/genai-service.yml
 
+      - name: Create external services secrets
+        env:
+          TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
+          ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
+          GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
+          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+        run: |
+          cd .secrets
+          envsubst < genai-external-serivce.yaml > ../git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
+          envsubst < pgvector-external-serivce.yaml > ../git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml
+          cat git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
+          cat git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml
+
+
       - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
@@ -45,13 +59,9 @@ jobs:
           GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
-          envsubst < .secrets/genai-external-serivce.yaml > git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
-          envsubst < .secrets/pgvector-external-serivce.yaml > git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml
-          tanzu login --endpoint ${ENDPOINT}
-          cd git-ops
-          tree
-          tanzu deploy --nested-contexts --patch --diff -y
-          rm git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
-          rm git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml
+            tanzu login --endpoint ${ENDPOINT}
+            cd git-ops
+            tree
+            tanzu deploy --nested-contexts --patch --diff -y
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
