@@ -46,6 +46,7 @@ jobs:
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
           cd .secrets
+          ll
           envsubst < genai-external-serivce.yaml > ../git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
           envsubst < pgvector-external-serivce.yaml > ../git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml
           cat git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
