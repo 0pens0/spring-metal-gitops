@@ -45,11 +45,13 @@ jobs:
           GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
-          envsubst < git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml > git-ops/spaces/spring-metal-dev/genai-external-serivce-man.yaml
-          envsubst < git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml > git-ops/spaces/spring-metal-dev/pgvector-external-serivce-man.yaml
+          envsubst < .secrets/genai-external-serivce.yaml > git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
+          envsubst < .secrets/pgvector-external-serivce.yaml > git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml
           tanzu login --endpoint ${ENDPOINT}
           cd git-ops
           tree
           tanzu deploy --nested-contexts --patch --diff -y
+          rm git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml
+          rm git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
