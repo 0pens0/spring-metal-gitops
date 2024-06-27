@@ -51,6 +51,7 @@ jobs:
           envsubst < pgvector-external-service.yaml > pgvector-external-service-encrypted.yaml
           pwd
           cat ../../git-ops/spaces/spring-metal-dev/genai-external-serivce-encrypted.yaml
+          cat pgvector-external-service-encrypted.yaml
 
 
 
