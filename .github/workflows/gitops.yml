@@ -42,7 +42,12 @@ jobs:
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
+          GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
+          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
+          apt-getg y install getext-base
+          envsubst < git-ops/spaces/spring-metal-dev/genai-external-serivce.yaml > git-ops/spaces/spring-metal-dev/genai-external-serivce-man.yaml
+          envsubst < git-ops/spaces/spring-metal-dev/pgvector-external-serivce.yaml > git-ops/spaces/spring-metal-dev/pgvector-external-serivce-man.yaml
           tanzu login --endpoint ${ENDPOINT}
           cd git-ops
           tree
