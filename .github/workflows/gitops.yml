@@ -47,14 +47,14 @@ jobs:
         run: |
           cd .secrets
           ls
-          envsubst < genai-external-serivce.yaml > genai-external-serivce-encrypted.yaml
-          envsubst < pgvector-external-service.yaml > pgvector-external-service-encrypted.yaml
-          pwd
-          cat genai-external-serivce-encrypted.yaml
-          cat pgvector-external-service-encrypted.yaml
+          envsubst < genai-external-serivce.yaml > spring-metal-gitops/git-ops/spaces/spring-metal-dev/genai-external-serivce-encrypted.yaml
+          envsubst < pgvector-external-service.yaml > spring-metal-gitops/git-ops/spaces/spring-metal-dev/pgvector-external-serivce-encrypted.yaml
           pwd
           cd ../..
-          cp .secrets/genai-external-serivce-encrypted.yaml git-ops/spaces/spring-metal-dev
+          cat spring-metal-gitops/git-ops/spaces/spring-metal-dev/genai-external-serivce-encrypted.yaml
+          cat spring-metal-gitops/git-ops/spaces/spring-metal-dev/pgvector-external-serivce-encrypted.yaml
+          pwd
+
 
       - name: Deploy resources to Tanzu Project
         env:
