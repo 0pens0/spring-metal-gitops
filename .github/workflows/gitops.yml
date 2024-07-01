@@ -47,12 +47,13 @@ jobs:
         run: |
           cd .secrets
           ls
-          envsubst < genai-external-serivce.yaml > spring-metal-gitops/git-ops/spaces/spring-metal-dev/genai-external-serivce-encrypted.yaml
-          envsubst < pgvector-external-service.yaml > spring-metal-gitops/git-ops/spaces/spring-metal-dev/pgvector-external-serivce-encrypted.yaml
+          envsubst < genai-external-serivce.yaml > spring-metal-gitops/git-ops/spaces/spring-metal-dev/
+          envsubst < pgvector-external-service.yaml > spring-metal-gitops/git-ops/spaces/spring-metal-dev/
           pwd
           cd ../..
-          cat spring-metal-gitops/git-ops/spaces/spring-metal-dev/genai-external-serivce-encrypted.yaml
-          cat spring-metal-gitops/git-ops/spaces/spring-metal-dev/pgvector-external-serivce-encrypted.yaml
+          cd spring-metal-gitops/git-ops/spaces/spring-metal-dev
+          cat genai-external-serivce.yaml
+          cat pgvector-external-service.yaml
           pwd
 
 
