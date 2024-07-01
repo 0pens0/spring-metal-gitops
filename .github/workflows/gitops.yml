@@ -52,6 +52,12 @@ jobs:
           pwd
           cat genai-external-serivce-encrypted.yaml
           cat pgvector-external-service-encrypted.yaml
+          pwd
+          cd ../..
+          pwd
+
+
+
 
 
 
