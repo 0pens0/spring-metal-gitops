@@ -41,6 +41,5 @@ jobs:
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
             tanzu deploy --nested-contexts --patch --diff -y
-
-
+            
       - run: echo "🍏 This job's status is ${{ job.status }}."
