@@ -40,6 +40,7 @@ jobs:
         run: |
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
+            cp -R spaces/spring-metal-stage/spring-metal spaces/spring-metal-prod
             tree
             tanzu deploy --nested-contexts --patch --diff -y
 
