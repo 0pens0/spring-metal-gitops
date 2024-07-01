@@ -31,10 +31,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       
-      - uses: de-vri-es/setup-git-credentials@v2
-        with:
-          credentials: ${{secrets.GIT_CREDENTIALS}}
-      
       - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
@@ -49,10 +45,15 @@ jobs:
             cp -R git-ops/spaces/spring-metal-stage/spring-metal git-ops/spaces/spring-metal-prod
             tree
 
+      - uses: de-vri-es/setup-git-credentials@v2
+        with:
+          credentials: ${{secrets.GIT_CREDENTIALS}}
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: stage
           commit_message: Push application binaries to prod
+          commit_user_name: 0pens0
 
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
