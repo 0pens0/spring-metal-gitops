@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} deploying
 on:
   push:
     branches:
-      - "master"
+      - "stage"
 jobs:
   gitops-deploy:
     runs-on: ubuntu-latest
@@ -30,6 +30,8 @@ jobs:
 
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_CREDENTIALS }}
 
       - name: Deploy resources to Tanzu Project
         env:
@@ -40,8 +42,15 @@ jobs:
         run: |
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
+            cp -R spaces/spring-metal-dev/spring-metal spaces/spring-metal-stage
+            tanzu deploy --nested-contexts --patch --diff -y
             cp -R spaces/spring-metal-stage/spring-metal spaces/spring-metal-prod
             tree
-            tanzu deploy --nested-contexts --patch --diff -y
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: stage
+          commit_message: Push application binaries to prod
+          commit_user_name: 0pens0
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
