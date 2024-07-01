@@ -42,9 +42,10 @@ jobs:
         run: |
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
+            tree
             tanzu deploy --nested-contexts --patch --diff -y
             #cp -R spaces/spring-metal-stage/spring-metal spaces/spring-metal-prod
-            tree
+
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
