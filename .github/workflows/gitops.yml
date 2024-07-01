@@ -30,7 +30,11 @@ jobs:
 
       - name: Check out repository code
         uses: actions/checkout@v4
-
+      
+      - uses: de-vri-es/setup-git-credentials@v2
+        with:
+          credentials: ${{secrets.GIT_CREDENTIALS}}
+      
       - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
@@ -49,7 +53,6 @@ jobs:
         with:
           branch: stage
           commit_message: Push application binaries to prod
-          token: ${{ secrets.GITHUB_TOKEN }}
 
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
