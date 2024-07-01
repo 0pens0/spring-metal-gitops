@@ -45,13 +45,6 @@ jobs:
             tree
             tanzu deploy --nested-contexts --patch -y
       
-      - name: Promote to Prod
-        run: |
-            cd git-ops/spaces/spring-metal-stage/
-            tanzu promote --to ../spring-metal-prod
-
-
-
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: stage
