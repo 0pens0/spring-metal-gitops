@@ -43,9 +43,8 @@ jobs:
             tanzu deploy --nested-contexts --patch --diff -y
             cd ..
             cp -R git-ops/spaces/spring-metal-stage/spring-metal git-ops/spaces/spring-metal-prod
-            git add .
             tree
-            
-      - uses: stefanzweifel/git-auto-commit-action@v4
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
