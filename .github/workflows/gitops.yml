@@ -52,11 +52,11 @@ jobs:
           envsubst < pgvector-external-service.yaml > pgvector-external-service.yaml
           cat genai-external-serivce.yaml
           cat pgvector-external-service.yaml
-          cd ../spring-metal-stage
-          envsubst < genai-external-serivce.yaml > genai-external-serivce.yaml
-          envsubst < pgvector-external-service.yaml > pgvector-external-service.yaml
-          cat genai-external-serivce.yaml
-          cat pgvector-external-service.yaml
+          #cd ../spring-metal-stage
+          #envsubst < genai-external-serivce.yaml > genai-external-serivce.yaml
+          #envsubst < pgvector-external-service.yaml > pgvector-external-service.yaml
+          #cat genai-external-serivce.yaml
+          #cat pgvector-external-service.yaml
 
 
 
