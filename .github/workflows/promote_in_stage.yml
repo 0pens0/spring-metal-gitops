@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GIT_CREDENTIALS }}
-      
+
       - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
@@ -43,18 +43,13 @@ jobs:
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
             tanzu deploy --nested-contexts --patch --diff -y
-<<<<<<< HEAD
-=======
-            cd ..
-            cp -R git-ops/spaces/spring-metal-stage/spring-metal git-ops/spaces/spring-metal-prod
+            cp -R spaces/spring-metal-stage/spring-metal spaces/spring-metal-prod
             tree
->>>>>>> 29aa7ccfa8bc9c41379f55bec9e1abf5d899884f
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: stage
           commit_message: Push application binaries to prod
           commit_user_name: 0pens0
-
 
       - run: echo "🍏 This job's status is ${{ job.status }}."

@@ -30,7 +30,7 @@ jobs:
 
       - name: Check out repository code
         uses: actions/checkout@v4
-
+      
       - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
@@ -40,8 +40,7 @@ jobs:
         run: |
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
-            cp -R spaces/spring-metal-stage/spring-metal spaces/spring-metal-prod
-            tree
             tanzu deploy --nested-contexts --patch --diff -y
+
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
