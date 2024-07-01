@@ -45,8 +45,7 @@ jobs:
             tree
             tanzu deploy --nested-contexts --patch --diff -y
       
-      - name: Deploy resources to Tanzu Project
-        env:
+      - name: Promote to Prod
         run: |
             cd git-ops/spaces/spring-metal-stage/
             tanzu promote --to ../spring-metal-prod

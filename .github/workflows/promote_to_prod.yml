@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} deploying
 on:
   push:
     branches:
-      - "master"
+      - "main"
 jobs:
   gitops-deploy:
     runs-on: ubuntu-latest
@@ -41,5 +41,5 @@ jobs:
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
             tanzu deploy --nested-contexts --patch --diff -y
-            
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
