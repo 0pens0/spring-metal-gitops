@@ -42,9 +42,8 @@ jobs:
         run: |
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
-            rm -rf git-ops/spaces/spring-metal-prod/spring-metal
             tree
-            tanzu deploy --nested-contexts --patch --diff -y
+            tanzu deploy --nested-contexts --patch -y
       
       - name: Promote to Prod
         run: |
