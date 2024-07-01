@@ -44,7 +44,13 @@ jobs:
             cd git-ops
             tree
             tanzu deploy --nested-contexts --patch --diff -y
-            #cp -R spaces/spring-metal-stage/spring-metal spaces/spring-metal-prod
+      
+      - name: Deploy resources to Tanzu Project
+        env:
+        run: |
+            cd git-ops/spaces/spring-metal-stage/
+            tanzu promote --to ../spring-metal-prod
+
 
 
       - uses: stefanzweifel/git-auto-commit-action@v5
