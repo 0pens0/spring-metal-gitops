@@ -1,16 +1,17 @@
-name: Deploy gitops project
+name: TPK8S Gitops
 run-name: ${{ github.actor }} deploying
 on:
   push:
     branches:
-      - "master"
+      - "stage"
 jobs:
   gitops-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Install Tanzu CLI
+        env:
+          TANZU_CLI_VERSION: ${{vars.TANZU_CLI_VERSION}}
         run: |
-          TANZU_CLI_VERSION=v1.3.0
           curl -Lo tanzu-cli-linux-amd64.tar.gz https://github.com/vmware-tanzu/tanzu-cli/releases/download/${TANZU_CLI_VERSION}/tanzu-cli-linux-amd64.tar.gz
           curl -Lo tanzu-cli-binaries-checksums.txt https://github.com/vmware-tanzu/tanzu-cli/releases/download/${TANZU_CLI_VERSION}/tanzu-cli-binaries-checksums.txt
           if [ "$(cat tanzu-cli-binaries-checksums.txt | grep tanzu-cli-linux-amd64.tar.gz)" != "$(sha256sum tanzu-cli-linux-amd64.tar.gz)" ]; then echo "Checksum does not match"; exit 1; fi
@@ -22,31 +23,25 @@ jobs:
           tanzu version
 
       - name: Install tanzu plugins
+        env:
+          TANZU_CLI_INCLUDE_DEACTIVATED_PLUGINS_TEST_ONLY: 1
         run: |
-          tanzu plugin install build
-          tanzu plugin install resource
-          tanzu plugin install project
-          tanzu plugin install space
+          tanzu plugin install resource -v v0.2.1 -t 'global'
 
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Deploy
+
+      - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
-          ENDPOINT: ${{ secrets.API_ENDPOINT || 'console.cloud.vmware.com' }}
-          REGISTRY: ${{ secrets.REGISTRY_ENDPOINT }}
-          REGISTRY_PASS: ${{ secrets.RERGISTRY_PASS}}
+          ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
+          GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
+          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
-          tanzu login --endpoint ${ENDPOINT}
-          tanzu build config --build-plan-source-type=file --build-plan-source conf/platform-config.yml --containerapp-registry harbor.vmtanzu.com/openso-tap-apps/{name}
-          tanzu build config view
-          tanzu context list --wide
-          tanzu project list
-          docker login ${REGISTRY} -u openso -p  ${REGISTRY_PASS}
-          tanzu project use ${{ secrets.PROJECT_NAME }}
-          tanzu space list
-          tanzu space use ${{ secrets.SPACE_NAME }}
-          git clone https://github.com/0pens0/spring-metal
-          cd spring-metal
-          tanzu deploy -y --diff
+            tanzu login --endpoint ${ENDPOINT}
+            cd git-ops
+            tanzu deploy --nested-contexts --patch --diff -y
+            cp -R spaces/spring-metal-stage/spring-metal spaces/spring-metal-prod
+            tree
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
