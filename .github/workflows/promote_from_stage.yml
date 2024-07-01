@@ -43,7 +43,7 @@ jobs:
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
             tree
-            tanzu deploy --nested-contexts --patch --diff -y
+            tanzu deploy --nested-contexts --patch -y
       
       - name: Promote to Prod
         run: |
