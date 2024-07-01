@@ -9,7 +9,6 @@ spec:
       profiles:
       - name: spring-apps
       - name: networking
-      #- name: fluxcd-helm.tanzu.vmware.com
   availabilityTargets:
   - name: eu-availibility-target
     replicas: 1
