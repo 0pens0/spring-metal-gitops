@@ -47,10 +47,6 @@ jobs:
             cp -R git-ops/spaces/spring-metal-stage/spring-metal git-ops/spaces/spring-metal-prod
             tree
 
-      - uses: de-vri-es/setup-git-credentials@v2
-        with:
-          credentials: ${{secrets.GIT_CREDENTIALS}}
-
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: stage
