@@ -30,13 +30,17 @@ jobs:
 
       - name: Check out repository code
         uses: actions/checkout@v4
+
+      - name: Promote to Prod
+        run: |
+            cd git-ops/spaces/spring-metal-stage/
+            tanzu promote --to ../spring-metal-prod
       
-      - name: Deploy resources to Tanzu Project
+      - name: Deploy resources prod space
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
-          GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
-          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+
         run: |
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
