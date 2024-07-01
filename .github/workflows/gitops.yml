@@ -54,14 +54,8 @@ jobs:
           cat pgvector-external-service-encrypted.yaml
           pwd
           cd ../..
-          pwd
-
-
-
-
-
-
-
+          ls
+          
       - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
