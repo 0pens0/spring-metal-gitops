@@ -26,13 +26,22 @@ jobs:
         env:
           TANZU_CLI_INCLUDE_DEACTIVATED_PLUGINS_TEST_ONLY: 1
         run: |
-          tanzu plugin install resource -v v0.2.1 -t 'global'
+          tanzu plugin install resource -v v0.2.0 -t 'global'
 
       - name: Check out repository code
         uses: actions/checkout@v4
+      
+        #name: Extract services secrets
+        #env:
+        #  GENAI_SECRET: '${{vars.GENAI}}'
+        #run: |
+        #  echo $GENAI_SECRET
+        #  echo $GENAI_SECRET > git-ops/spaces/spring-metal-dev/genai-service.yml
 
       - name: Create external services secrets
         env:
+          TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
+          ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
           GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
@@ -41,13 +50,16 @@ jobs:
           pwd
           envsubst < genai-external-serivce.yaml > genai-external-serivce.yaml
           envsubst < pgvector-external-service.yaml > pgvector-external-service.yaml
-          cat pgvector-external-service.yaml
           cat genai-external-serivce.yaml
-          #cd ../spring-metal-stage
-          #envsubst < genai-external-serivce.yaml > genai-external-serivce.yaml
-          #envsubst < pgvector-external-service.yaml > pgvector-external-service.yaml
-          #cat pgvector-external-service.yaml
-          #cat genai-external-serivce.yaml
+          cat pgvector-external-service.yaml
+          cd ../spring-metal-stage
+          envsubst < genai-external-serivce.yaml > genai-external-serivce.yaml
+          envsubst < pgvector-external-service.yaml > pgvector-external-service.yaml
+          cat genai-external-serivce.yaml
+          cat pgvector-external-service.yaml
+
+
+
 
       - name: Deploy resources to Tanzu Project
         env:
