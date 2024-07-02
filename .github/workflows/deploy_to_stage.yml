@@ -55,10 +55,8 @@ jobs:
 
       - name: Cleanup
         run: |
-            rm git-ops/spaces/spring-metal-dev/secrets/*
-            cd git-ops/spaces/spring-metal-dev/secrets
-            pwd
-            ls
+            > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
+            > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
 
       
       - uses: stefanzweifel/git-auto-commit-action@v5
