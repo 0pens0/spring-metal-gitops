@@ -37,8 +37,7 @@ jobs:
         env:
           GENAI_SECRET: ${{secrets.GENAI_API_KEY}}
           POSTGRES_SECRET: ${{secrets.POSTGRES_PASSWORD}}
-
-
+          
         run: |
             echo '${GENAI_SECRET}' > .secrets/genai-secret.yml
             echo '${POSTGRES_SECRET}' > .secrets/pgvector-secret.yml
@@ -57,7 +56,7 @@ jobs:
             tree
             tanzu deploy --nested-contexts --diff --patch -y
 
-      - name: Deploy resources to Tanzu Project
+      - name: Cleanup external services secrets
         env:
           GENAI_SECRET_CLEAR: ${{vars.GENAI_SECRET_CLEAR}}
           POSTGRES_SECRET_CLEAR: ${{vars.POSTGRES_SECRET_CLEAR}}
