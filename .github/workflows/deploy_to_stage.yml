@@ -56,19 +56,19 @@ jobs:
             tree
             tanzu deploy --nested-contexts --patch -y
 
-      - name: Cleanup
-        run: |
-        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
-        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
-        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/genai-secret.yml
-        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/pgvector-secret.yml
-        #   echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/genai-secret.yml
-        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/pgvector-secret.yml
+      # - name: Cleanup
+      #   run: |
+      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
+      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
+      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/genai-secret.yml
+      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/pgvector-secret.yml
+      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/genai-secret.yml
+      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/pgvector-secret.yml
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: stage
-          commit_message: Push application binaries to prod
-          commit_user_name: 0pens0
+      # - uses: stefanzweifel/git-auto-commit-action@v5
+      #  with:
+      #    branch: stage
+      #    commit_message: Push application binaries to prod
+      #    commit_user_name: 0pens0
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
