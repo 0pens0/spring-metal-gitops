@@ -52,6 +52,7 @@ jobs:
             cd git-ops
             tree
             tanzu deploy --nested-contexts --patch -y
+            rm spaces/spring-metal-dev/secrets/*
       
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
