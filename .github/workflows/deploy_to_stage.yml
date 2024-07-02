@@ -38,17 +38,10 @@ jobs:
           GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
+            cd git-ops/spaces/spring-metal-dev/ext-services
             pwd
             ls
-            cd git-ops
-            pwd
-            ls
-            cd spaces
-            pwd
-            ls
-            cd spring-metal-dev
-            pws
-            ls
+
 
             #cd spring-metal-gitops/git-ops/spaces/spring-metal-dev
             #envsubst < genai-secret.yaml > genai-secret.yaml
