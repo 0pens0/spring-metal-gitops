@@ -41,7 +41,7 @@ jobs:
             cd git-ops/spaces/spring-metal-dev/ext-services
             ls
             envsubst < genai-secret.yml > genai-secret.yml
-            cat genai-secret.yaml
+            cat genai-secret.yml
 
       - name: Deploy resources to Tanzu Project
         env:
