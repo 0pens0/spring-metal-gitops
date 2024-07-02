@@ -41,9 +41,9 @@ jobs:
           cd git-ops/spaces/spring-metal-dev
           ls
           pwd
-          envsubst < genai-external-serivce.yaml > genai-external-serivce-1.yaml
+          envsubst < genai-external-serivce.yaml > genai-external-serivce.yaml
           rm genai-external-serivce.yaml
-          envsubst < pgvector-external-service.yaml > pgvector-external-service-1.yaml
+          envsubst < pgvector-external-service.yaml > pgvector-external-service.yaml
           rm pgvector-external-service.yaml
 
       - name: Deploy resources to Tanzu Project
