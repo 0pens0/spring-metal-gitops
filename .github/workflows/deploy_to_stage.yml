@@ -40,8 +40,6 @@ jobs:
         run: |
             echo '${GENAI_API_KEY}' > .secrets/genai-secret.yml
             echo '${POSTGRES_PASSWORD}' > .secrets/pgvector-secret.yml
-            cat > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
-            cat > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
             envsubst < .secrets/genai-secret.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             envsubst < .secrets/pgvector-secret.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
 
