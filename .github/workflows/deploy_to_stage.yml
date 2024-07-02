@@ -64,7 +64,7 @@ jobs:
         run: |
             envsubst < .secrets/genai-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             cat git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
-            envsubst < .secrets/pgvector-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
+            envsubst < .secrets/postgres-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
             cat git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
             cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-stage/secrets/
             cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-prod/secrets/
