@@ -57,13 +57,6 @@ jobs:
             tree
             tanzu deploy --nested-contexts --patch -y
 
-      - name: Cleanup
-        run: |
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
-            cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-stage/secrets/
-            cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-prod/secrets/
-
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: stage
