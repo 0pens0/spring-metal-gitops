@@ -55,7 +55,7 @@ jobs:
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
             tree
-            tanzu deploy --nested-contexts --patch -y
+            tanzu deploy --nested-contexts --diff --patch -y
 
       - name: Deploy resources to Tanzu Project
         env:
