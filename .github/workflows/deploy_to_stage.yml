@@ -37,6 +37,7 @@ jobs:
         env:
           GENAI_SECRET: ${{secrets.GENAI_API_KEY}}
           POSTGRES_SECRET: ${{secrets.POSTGRES_PASSWORD}}
+          CLEAN_SECRET: ${{vars.GENAI_CLEAN_SECRET}}
         run: |
             echo '${GENAI_SECRET}' > .secrets/genai-secret.yml
             echo '${POSTGRES_SECRET}' > .secrets/pgvector-secret.yml
@@ -57,7 +58,7 @@ jobs:
 
       - name: Cleanup
         run: |
-            echo '${{vars.GENAI_CLEAN_SECRET}}' > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
+            echo '${CLEAN_SECRET}' > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             echo '#this is a secret file for postgres' > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
             echo '#this is a secret file for genai' > git-ops/spaces/spring-metal-stage/secrets/genai-secret.yml
             echo '#this is a secret file for postgres' > git-ops/spaces/spring-metal-stage/secrets/pgvector-secret.yml
