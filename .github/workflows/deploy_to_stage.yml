@@ -41,17 +41,16 @@ jobs:
             cd git-ops/spaces/spring-metal-dev/ext-services
             ls
             envsubst < genai-secret.yml > genai-secret.yml
-            cat genai-secret.yml
 
       - name: Deploy resources to Tanzu Project
         env:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
-            #tanzu login --endpoint ${ENDPOINT}
-            #cd git-ops
-            #tree
-            #tanzu deploy --nested-contexts --patch -y
+            tanzu login --endpoint ${ENDPOINT}
+            cd git-ops
+            tree
+            tanzu deploy --nested-contexts --patch -y
       
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
