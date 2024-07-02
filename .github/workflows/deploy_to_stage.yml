@@ -52,6 +52,8 @@ jobs:
             cd git-ops
             tree
             tanzu deploy --nested-contexts --patch -y
+            rm git-ops/spaces/spring-metal-dev/ext-services/genai-secret.yml
+            rm git-ops/spaces/spring-metal-dev/ext-services/pgvector-secret.yml
       
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
