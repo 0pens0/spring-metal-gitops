@@ -38,9 +38,8 @@ jobs:
           GENAI_API_KEY: ${{secrets.GENAI_API_KEY}}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         run: |
-            cd git-ops/spaces/spring-metal-dev/ext-services
-            envsubst < genai-secret.yml > genai-secret.yml
-            envsubst < pgvector-secret.yml > pgvector-secret.yml
+            envsubst < .secrets/genai-secret.yml > git-ops/spaces/spring-metal-dev/ext-services/genai-secret.yml
+            cat git-ops/spaces/spring-metal-dev/ext-services/genai-secret.yml
 
       - name: Deploy resources to Tanzu Project
         env:
