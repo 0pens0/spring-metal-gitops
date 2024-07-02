@@ -58,7 +58,7 @@ jobs:
 
       - name: Cleanup
         run: |
-            echo '${CLEAN_SECRET}' > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
+            echo ${CLEAN_SECRET} > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             echo '#this is a secret file for postgres' > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
             echo '#this is a secret file for genai' > git-ops/spaces/spring-metal-stage/secrets/genai-secret.yml
             echo '#this is a secret file for postgres' > git-ops/spaces/spring-metal-stage/secrets/pgvector-secret.yml
