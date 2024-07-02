@@ -12,7 +12,7 @@ spec:
   availabilityTargets:
   - name: eu-availibility-target
     replicas: 1
-  - name: us-availibility-target
-    replicas: 1
+  #- name: us-availibility-target
+  # replicas: 1
   updateStrategy:
     type: Recreate
