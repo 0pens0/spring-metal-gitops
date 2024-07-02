@@ -37,7 +37,7 @@ jobs:
         env:
           GENAI_SECRET: ${{secrets.GENAI_API_KEY}}
           POSTGRES_SECRET: ${{secrets.POSTGRES_PASSWORD}}
-          CLEAN_SECRET: ${{vars.GENAI_CLEAN_SECRET}}
+          CLEAN_SECRET: ${{vars.GRNAI_CLEAN_SECRET}}
         run: |
             echo '${GENAI_SECRET}' > .secrets/genai-secret.yml
             echo '${POSTGRES_SECRET}' > .secrets/pgvector-secret.yml
