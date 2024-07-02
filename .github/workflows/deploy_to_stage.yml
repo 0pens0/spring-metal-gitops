@@ -58,12 +58,12 @@ jobs:
 
       - name: Cleanup
         run: |
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-stage/secrets/genai-secret.yml
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-stage/secrets/pgvector-secret.yml
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-prod/secrets/genai-secret.yml
-            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-prod/secrets/pgvector-secret.yml
+        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
+        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
+        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/genai-secret.yml
+        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/pgvector-secret.yml
+        #   echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/genai-secret.yml
+        #    echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/pgvector-secret.yml
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
