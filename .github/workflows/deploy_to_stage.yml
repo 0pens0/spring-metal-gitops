@@ -46,6 +46,9 @@ jobs:
             cd spaces
             pwd
             ls
+            cd spring-metal-dev
+            pws
+            ls
 
             #cd spring-metal-gitops/git-ops/spaces/spring-metal-dev
             #envsubst < genai-secret.yaml > genai-secret.yaml
