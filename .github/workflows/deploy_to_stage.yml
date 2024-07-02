@@ -41,6 +41,7 @@ jobs:
         run: |
             echo '${GENAI_SECRET}' > .secrets/genai-secret.yml
             echo '${POSTGRES_SECRET}' > .secrets/pgvector-secret.yml
+            echo '${CLEAN_SECRET}' > .secrets/clean-secret.yml
             envsubst < .secrets/genai-secret.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             envsubst < .secrets/pgvector-secret.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
             cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-stage/secrets/
@@ -56,14 +57,12 @@ jobs:
             tree
             tanzu deploy --nested-contexts --patch -y
 
-      # - name: Cleanup
-      #   run: |
-      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
-      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
-      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/genai-secret.yml
-      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-stage/secrets/pgvector-secret.yml
-      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/genai-secret.yml
-      #     echo '# this is a secret file' > git-ops/spaces/spring-metal-prod/secrets/pgvector-secret.yml
+      - name: Cleanup
+        run: |
+            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
+            envsubst < .secrets/clean-secret.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
+            cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-stage/secrets/
+            cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-prod/secrets/
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
