@@ -55,14 +55,18 @@ jobs:
             cd git-ops
             tree
             tanzu deploy --nested-contexts --patch -y
-            cd ..
-            gh pr create --title "Promote to Prod" --fill --base master --head stage
+            
+            
+      - uses: de-vri-es/setup-git-credentials@v2
+        with:
+          credentials: ${{secrets.GIT_CREDENTIALS}}
 
       - name: Cleanup external services secrets
         env:
           GENAI_SECRET_CLEAR: ${{vars.GENAI_SECRET_CLEAR}}
           POSTGRES_SECRET_CLEAR: ${{vars.POSTGRES_SECRET_CLEAR}}
         run: |
+            gh pr create --title "Promote to Prod" --fill --base master --head stage
             envsubst < .secrets/genai-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             cat git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             envsubst < .secrets/postgres-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
