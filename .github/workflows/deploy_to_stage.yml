@@ -62,7 +62,6 @@ jobs:
           POSTGRES_SECRET_CLEAR: ${{vars.POSTGRES_SECRET_CLEAR}}
           GH_TOKEN: ${{secrets.GIT_CREDENTIALS}}
         run: |
-            gh pr create --title "Promote to Prod" --fill --base master --head stage
             envsubst < .secrets/genai-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             cat git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
             envsubst < .secrets/postgres-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
@@ -75,5 +74,13 @@ jobs:
           branch: stage
           commit_message: Push application binaries to prod
           commit_user_name: 0pens0
+
+
+
+      - name: Create PR to Prod
+        env:
+          GH_TOKEN: ${{secrets.GIT_CREDENTIALS}}
+        run: |
+            gh pr create --title "Promote to Prod" --fill --base master --head stage
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
