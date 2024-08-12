@@ -23,8 +23,8 @@ jobs:
           tanzu version
 
       - name: Install tanzu plugins
-        env:
-          TANZU_CLI_INCLUDE_DEACTIVATED_PLUGINS_TEST_ONLY: 1
+        #env:
+          #TANZU_CLI_INCLUDE_DEACTIVATED_PLUGINS_TEST_ONLY: 1
         run: |
           tanzu plugin install resource
 
