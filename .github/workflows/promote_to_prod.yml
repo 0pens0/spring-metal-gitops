@@ -23,8 +23,8 @@ jobs:
           tanzu version
 
       - name: Install tanzu plugins
-        #env:
-          #TANZU_CLI_INCLUDE_DEACTIVATED_PLUGINS_TEST_ONLY: 1
+        env:
+          TANZU_CLI_INCLUDE_DEACTIVATED_PLUGINS_TEST_ONLY: 1
         run: |
           tanzu plugin install resource
 
@@ -49,6 +49,8 @@ jobs:
         run: |
             cd git-ops/spaces/spring-metal-stage/
             tanzu promote --to ../spring-metal-prod
+            cd ..
+            tree
       
       - name: Deploy resources prod space
         env:
