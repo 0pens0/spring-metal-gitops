@@ -32,6 +32,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GIT_CREDENTIALS }}
+          fetch-depth: 0
 
       - name: Create service secrets
         env:
