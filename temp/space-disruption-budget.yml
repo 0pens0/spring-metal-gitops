@@ -1,0 +1,9 @@
+   apiVersion: spaces.tanzu.vmware.com/v1alpha1
+   kind: SpaceDisruptionBudget
+   metadata:
+     name: spring-metal
+   namespace: default
+   spec:
+     availabilityTargets:
+     - minAvailable: 1
+       name: eu-availibility-target
