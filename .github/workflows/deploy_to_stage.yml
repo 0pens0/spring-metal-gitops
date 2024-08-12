@@ -55,16 +55,12 @@ jobs:
             cd git-ops
             tree
             tanzu deploy --nested-contexts --patch -y
-            
-            
-      - uses: de-vri-es/setup-git-credentials@v2
-        with:
-          credentials: ${{secrets.GIT_CREDENTIALS}}
 
       - name: Cleanup external services secrets
         env:
           GENAI_SECRET_CLEAR: ${{vars.GENAI_SECRET_CLEAR}}
           POSTGRES_SECRET_CLEAR: ${{vars.POSTGRES_SECRET_CLEAR}}
+          GH_TOKEN: ${{secrets.GIT_CREDENTIALS}}
         run: |
             gh pr create --title "Promote to Prod" --fill --base master --head stage
             envsubst < .secrets/genai-secret-clear.yml > git-ops/spaces/spring-metal-dev/secrets/genai-secret.yml
