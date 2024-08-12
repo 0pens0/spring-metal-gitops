@@ -55,6 +55,8 @@ jobs:
             cd git-ops
             tree
             tanzu deploy --nested-contexts --patch -y
+            cd ..
+            gh pr create --title "Promote to Prod" --fill --base master --head stage
 
       - name: Cleanup external services secrets
         env:
