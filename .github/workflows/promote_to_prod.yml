@@ -58,7 +58,7 @@ jobs:
         run: |
             tanzu login --endpoint ${ENDPOINT}
             cd git-ops
-            tanzu deploy --nested-contexts --diff --patch -y
+            tanzu deploy --nested-contexts --patch -y
 
     
       - name: Cleanup external services secrets
