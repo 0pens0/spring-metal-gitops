@@ -56,7 +56,7 @@ jobs:
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
           
         run: |
-            tanzu login --endpoint ${{API_ENDPOINT}}
+            tanzu login --endpoint ${{vars.API_ENDPOINT}}
             cd git-ops
             tree
             tanzu deploy --nested-contexts --patch -y
