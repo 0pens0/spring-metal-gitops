@@ -60,7 +60,7 @@ jobs:
             tanzu context current
             cd git-ops
             tree
-            tanzu deploy --patch -y
+            tanzu deploy --nested-contexts --patch -y
 
     
       - name: Cleanup external services secrets
