@@ -76,9 +76,7 @@ jobs:
           branch: stage
           commit_message: Push application binaries to prod
           commit_user_name: 0pens0
-
-
-
+          
       - name: Create PR to Prod
         env:
           GH_TOKEN: ${{secrets.GIT_CREDENTIALS}}
