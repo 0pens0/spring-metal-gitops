@@ -9,7 +9,7 @@ spec:
       profiles:
       - name: spring-apps
       - name: networking
-      - name: ai-server
+      - name: ai-server-profile
   availabilityTargets:
   - name: eu-availibility-target
     replicas: 1
