@@ -45,6 +45,7 @@ jobs:
             envsubst < .secrets/pgvector-secret.yml > git-ops/spaces/spring-metal-dev/secrets/pgvector-secret.yml
             cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-stage/secrets/
             cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-prod/secrets/
+            cp -a git-ops/spaces/spring-metal-dev/secrets/. git-ops/spaces/spring-metal-ai-server/secrets/
 
             
       - name: Deploy resources to Tanzu Project
