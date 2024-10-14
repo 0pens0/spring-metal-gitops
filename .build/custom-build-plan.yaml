@@ -8,7 +8,7 @@ spec:
     builder: tanzu-build-public.packages.broadcom.com/builders/builder-jammy-base:0.1.2@sha256:2370d9e499afb6e0b2fb0d3c4533d733a47f771eb0a115c4f9aa75cd081ee072
   postBuildSteps:
   - namedTask: tanzu-spring-boot
-  registry: ""
+  registry: openso/{name}
   runtimes:
   - description: create a carvel package for deploying on kubernetes
     name: kubernetes-carvel-package
