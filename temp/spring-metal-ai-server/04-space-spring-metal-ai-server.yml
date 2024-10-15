@@ -1,0 +1,17 @@
+---
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Space
+metadata:
+  name: spring-metal-ai-server
+spec:
+  template:
+    spec:
+      profiles:
+      - name: spring-apps
+      - name: networking
+      - name: ai-server-profile
+  availabilityTargets:
+  - name: eu-availibility-target
+    replicas: 1
+  updateStrategy:
+    type: Recreate
