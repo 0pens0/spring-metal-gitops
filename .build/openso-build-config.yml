@@ -1,0 +1,11 @@
+apiVersion: build.tanzu.vmware.com/v1
+kind: BuildConfiguration
+metadata:
+  name: openso-buildconfiguration
+spec:
+  apiCredentialSecretRef:
+    name: api-creds
+  availabilityTarget: eu-availibility-target
+  imageRepositorySecretRefs:
+  - name: harbor-registry
+  imageRepositoryTemplate: harbor.vmtanzu.com/openso/{name}
