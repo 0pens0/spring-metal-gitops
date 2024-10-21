@@ -13,6 +13,10 @@ spec:
   - name: eu-availibility-target
     replicas: 1
   #- name: us-availibility-target
+<<<<<<< HEAD:git-ops/Projects/tanzu-platform-demo/03-space-spring-metal-prod.yaml
   #  replicas: 1
+=======
+    #replicas: 1
+>>>>>>> master:git-ops/Projects/tanzu-platform-demo/04-space-spring-metal-prod.yaml
   updateStrategy:
     type: Recreate
