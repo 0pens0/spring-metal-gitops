@@ -1,0 +1,31 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/spring-metal
+  creationTimestamp: null
+  name: spring-metal.apps.local.20241030.1518.32327
+spec:
+  refName: spring-metal.apps.local
+  releasedAt: "2024-10-30T15:20:40Z"
+  template:
+    spec:
+      deploy:
+      - kapp:
+          rawOptions:
+          - --wait=false
+      fetch:
+      - imgpkgBundle:
+          image: harbor.vmtanzu.com/openso-tap-apps/spring-metal@sha256:373cdfaf4d15516def2bd1c40de92ec4681a6f733cbe73937c9dc1aa2911525e
+      template:
+      - ytt:
+          paths:
+          - config/
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+  valuesSchema:
+    openAPIv3: null
+  version: 20241030.1518.32327
