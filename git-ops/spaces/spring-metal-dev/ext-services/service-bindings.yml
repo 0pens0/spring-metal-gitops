@@ -1,15 +1,15 @@
 apiVersion: services.tanzu.vmware.com/v1
 kind: ServiceBinding
 metadata:
-  name: genai-chat-spring-metal
+  name: boneyard-chat-boneyard-assist
   namespace: default
 spec:
-  alias: ai-chat
+  alias: boneyard-chat
   serviceRef:
     apiGroup: services.tanzu.vmware.com
     connectorName: main
     kind: PreProvisionedService
-    name: genai-chat
+    name: boneyard-chat
   targetRef:
     apiGroup: apps.tanzu.vmware.com
     kind: ContainerApp
@@ -19,15 +19,15 @@ spec:
 apiVersion: services.tanzu.vmware.com/v1
 kind: ServiceBinding
 metadata:
-  name: genai-embed-spring-metal
+  name: boneyard-embeddings-boneyard-assist
   namespace: default
 spec:
-  alias: ai-embed
+  alias: boneyard-embeddings
   serviceRef:
     apiGroup: services.tanzu.vmware.com
     connectorName: main
     kind: PreProvisionedService
-    name: genai-embed
+    name: boneyard-embeddings
   targetRef:
     apiGroup: apps.tanzu.vmware.com
     kind: ContainerApp
@@ -38,15 +38,15 @@ spec:
 apiVersion: services.tanzu.vmware.com/v1
 kind: ServiceBinding
 metadata:
-  name: pgvector-spring-metal
+  name: boneyard-db-vector-boneyard-assist
   namespace: default
 spec:
-  alias: db
+  alias: boneyard-db-vector
   serviceRef:
     apiGroup: services.tanzu.vmware.com
     connectorName: main
     kind: PreProvisionedService
-    name: pgvector
+    name: boneyard-db-vector
   targetRef:
     apiGroup: apps.tanzu.vmware.com
     kind: ContainerApp
