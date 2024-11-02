@@ -1,0 +1,69 @@
+apiVersion: apps.tanzu.vmware.com/v1
+kind: ContainerApp
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/spring-metal
+    containerapp.apps.tanzu.vmware.com/class: kubernetes
+  name: spring-metal
+spec:
+  content:
+    buildTimestamp: "2024-10-31T11:23:29Z"
+    gitCommit: 9301960911824430b6ce2b0aa8289f967bde477d
+    gitURL: github.com/0pens0/spring-metal.git
+    packageImage: harbor.vmtanzu.com/openso-tap-apps/spring-metal@sha256:0c0175c14c0333f6d5a3e5354087980f67ec41eabdf32ab892630e0e1f1e2e19
+    packageRefName: spring-metal.apps.local
+    packageVersion: 20241031.1123.29036
+    summary: git:9301960 @ 2024-10-31T11:23:29Z
+    version: 20241031.1123.29036
+  health:
+    maxUnavailableReplicas: 10%
+  image: harbor.vmtanzu.com/openso-tap-apps/spring-metal:20241031.1123.29036@sha256:b4261d810f81d07823053867dc62ce51848a2e06ed845976a4274d5fd8088201
+  ports:
+  - name: main
+    port: 8080
+  relatedRefs:
+  - for: kubernetes.list-replicas
+    kind: Pod
+    labelSelector: containerapp.apps.tanzu.vmware.com/app-name=spring-metal
+  - apiGroup: apps
+    for: kubernetes.service-binding-target
+    kind: Deployment
+    name: spring-metal
+  - for: kubernetes.service-target
+    kind: Service
+    name: spring-metal
+  - for: kubernetes.scale-replicas
+    keyPath: .data['values.yml']->[yaml].replicas
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.scale-resources
+    keyPath: .data['values.yml']->[yaml].resources
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.set-secret-env
+    keyPath: .data['values.yml']->[yaml].secretEnv
+    kind: Secret
+    name: spring-metal-values
+  - apiGroup: packaging.carvel.dev
+    for: kubernetes.delete
+    kind: PackageInstall
+    name: spring-metal
+  - apiGroup: data.packaging.carvel.dev
+    for: kubernetes.delete
+    kind: Package
+    name: spring-metal.apps.local.20241031.1123.29036
+  - for: kubernetes.delete
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.set-content-hash
+    keyPath: .data['values.yml']->[yaml].contentHash
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.set-content-version
+    keyPath: .data['values.yml']->[yaml].contentVersion
+    kind: Secret
+    name: spring-metal-values
+  resources:
+    cpu: 300m
+    memory: 1Gi
