@@ -13,7 +13,7 @@ spec:
   targetRef:
     apiGroup: apps.tanzu.vmware.com
     kind: ContainerApp
-    name: spring-metal
+    name: boneyard-assist
 
 ---
 apiVersion: services.tanzu.vmware.com/v1
@@ -31,23 +31,4 @@ spec:
   targetRef:
     apiGroup: apps.tanzu.vmware.com
     kind: ContainerApp
-    name: spring-metal
-
----
-
-apiVersion: services.tanzu.vmware.com/v1
-kind: ServiceBinding
-metadata:
-  name: boneyard-db-vector-boneyard-assist
-  namespace: default
-spec:
-  alias: boneyard-db-vector
-  serviceRef:
-    apiGroup: services.tanzu.vmware.com
-    connectorName: main
-    kind: PreProvisionedService
-    name: boneyard-db-vector
-  targetRef:
-    apiGroup: apps.tanzu.vmware.com
-    kind: ContainerApp
-    name: spring-metal
+    name: boneyard-assist
