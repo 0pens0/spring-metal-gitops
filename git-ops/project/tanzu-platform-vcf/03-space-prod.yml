@@ -2,13 +2,13 @@
 apiVersion: spaces.tanzu.vmware.com/v1alpha1
 kind: Space
 metadata:
-  name: spring-metal-prod
+  name: spring-prod
 spec:
   template:
     spec:
       profiles:
-      - name: spring-apps
-      - name: networking
+      - name: apps.tanzu.vmware.com
+      - name: bitnami.tanzu.vmware.com
   availabilityTargets:
   - name: eu-availibility-target
     replicas: 1
