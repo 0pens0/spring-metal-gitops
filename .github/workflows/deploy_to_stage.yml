@@ -38,19 +38,21 @@ jobs:
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
             tanzu login --endpoint ${ENDPOINT}
+            tanzu context list
             cd git-ops
+            tree
             tanzu deploy --nested-contexts -y
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: stage
-          commit_message: Push application binaries to prod
-          commit_user_name: 0pens0
+#      - uses: stefanzweifel/git-auto-commit-action@v5
+#       with:
+#          branch: stage
+#          commit_message: Push application binaries to prod
+#          commit_user_name: 0pens0
           
-      - name: Create PR to Prod
-        env:
-          GH_TOKEN: ${{secrets.GIT_CREDENTIALS}}
-        run: |
-            gh pr create --title "Promote to Prod" --fill --base master --head stage
+#      - name: Create PR to Prod
+#        env:
+#          GH_TOKEN: ${{secrets.GIT_CREDENTIALS}}
+#        run: |
+#            gh pr create --title "Promote to Prod" --fill --base master --head stage
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
