@@ -43,17 +43,4 @@ jobs:
             tree
             tanzu deploy --nested-contexts --patch -y
 
-
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: stage
-          commit_message: Push application binaries to prod
-          commit_user_name: 0pens0
-          
-      - name: Create PR to Prod
-        env:
-          GH_TOKEN: ${{secrets.GIT_CREDENTIALS}}
-        run: |
-            gh pr create --title "Promote to Prod" --fill --base master --head stage
-
       - run: echo "🍏 This job's status is ${{ job.status }}."
