@@ -1,0 +1,51 @@
+apiVersion: v1
+data:
+  uri: aHR0cHM6Ly9nZW5haS1wcm94eS5zeXMudGFzLnZtdGFuenUuY29tL2VjODRiM2IwLWQzZDQtNGViYi1iMmZhLTg0NGI5MzVmOTI3Ni9vcGVuYWkK
+  api-key: ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKbGJtUndiMmx1ZENJNkltVmpPRFJpTTJJd0xXUXpaRFF0TkdWaVlpMWlNbVpoTFRnME5HSTVNelZtT1RJM05pSXNJbU5zYVdWdWRGOXBaQ0k2SWpneE1ERmhPR1JrTFdVd1pEUXROR1kwTUMwNFlqZG1MV001TkRBNE1UaGxPV1kxWWlJc0ltdGxlVjlwWkNJNklqVXlZamcxTkRjNUxUaGtOMk10TkRWaU9TMDRaR0UyTFRNMVlUUTRPVFJpTkRVMFppSXNJbk4xWWlJNklqZ3daVGRpWlRjekxXVmhORFl0TkRVNU1pMWhaR016TFRFNU9XTTBZekV3TURNd1pDSXNJbWxoZENJNk1UYzBNRFF3TlRZNU9IMC5sczJoZ0JBcVg1dUVoRDVtNW95UU9MdFdPUWEzRmNRcGRjeUpvZjlKZUxZCg==
+  model-name: Z3B0LTRvCg==
+  model-capabilities: Y2hhdCx2aXNpb24K
+  provider: dGFuenU= # tanzu
+  type: Z2VuYWk=  # genai
+kind: Secret
+metadata:
+  name: boneyard-chat-creds
+type: servicebinding.io/ai
+
+---
+apiVersion: services.tanzu.vmware.com/v1
+kind: PreProvisionedService
+metadata:
+  name: boneyard-chat
+spec:
+  bindingConnectors:
+  - name: main
+    description: Gen AI credentials
+    type: genai
+    secretRef:
+      name: boneyard-chat-creds
+---
+apiVersion: v1
+data:
+  uri: aHR0cHM6Ly9nZW5haS1wcm94eS5zeXMudGFzLnZtdGFuenUuY29tLzNjMjdmYTg3LTU1YzktNGE5MS04NzNjLTk4ZDFjZTE5ZDZhMS9vcGVuYWkK
+  api-key: ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKbGJtUndiMmx1ZENJNklqTmpNamRtWVRnM0xUVTFZemt0TkdFNU1TMDROek5qTFRrNFpERmpaVEU1WkRaaE1TSXNJbU5zYVdWdWRGOXBaQ0k2SW1NNFpXUmlaR0k0TFdKaE56VXROR014TXkxaU0yTTVMVFl5TlRNMU16Rm1NekJoWWlJc0ltdGxlVjlwWkNJNkltWTNOalJrT1dFeUxUTTRPV1l0TkRRMk5DMWlPRE14TFRjd1pUWTRaVEZsWW1NNFlpSXNJbk4xWWlJNkltVTNOakpoTWpNNUxXSXpOakl0TkRBeE15MWlZakV4TFRBNFpEUmpPVGcwT0RjMVpDSXNJbWxoZENJNk1UYzBNRFF3TlRjd09IMC5RdGlRYkhlQXVJeHl4ZURuYTlqakdfamRTQ0NNTkQwUHRaOTN2Z3hoem5rCg==
+  model-name: dGV4dC1lbWJlZGRpbmctMy1zbWFsbAo=
+  model-capabilities: ZW1iZWRkaW5nCg==
+  provider: dGFuenU= # tanzu
+  type: Z2VuYWk=  # genai
+kind: Secret
+metadata:
+  name: boneyard-embeddings-creds
+type: servicebinding.io/ai
+
+---
+apiVersion: services.tanzu.vmware.com/v1
+kind: PreProvisionedService
+metadata:
+  name: boneyard-embeddings
+spec:
+  bindingConnectors:
+  - name: main
+    description: Gen AI credentials
+    type: genai
+    secretRef:
+      name: boneyard-embeddings-creds
