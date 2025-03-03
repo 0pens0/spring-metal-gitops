@@ -37,7 +37,7 @@ jobs:
           TANZU_API_TOKEN: ${{ secrets.API_TOKEN }}
           ENDPOINT: ${{ vars.API_ENDPOINT || 'console.cloud.vmware.com' }}
         run: |
-            tanzu login --endpoint ${ENDPOINT}
+            tanzu login
             tanzu context list --wide
             cd git-ops
             tree
