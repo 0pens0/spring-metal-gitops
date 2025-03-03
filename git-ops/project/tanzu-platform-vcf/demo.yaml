@@ -2,7 +2,7 @@
 apiVersion: spaces.tanzu.vmware.com/v1alpha1
 kind: Space
 metadata:
-  name: demo
+  name: demo-test-space
 spec:
   template:
     spec:
