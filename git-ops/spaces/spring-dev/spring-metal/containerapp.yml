@@ -1,0 +1,97 @@
+apiVersion: apps.tanzu.vmware.com/v1
+kind: ContainerApp
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/spring-metal
+    containerapp.apps.tanzu.vmware.com/class: kubernetes
+  name: spring-metal
+spec:
+  content:
+    buildTimestamp: "2025-03-03T18:27:41Z"
+    gitCommit: 6132a9aee9b311ba5002a5ba821c550c0268562c
+    gitRef: gitops
+    gitURL: github.com/0pens0/spring-metal.git
+    packageImage: harbor.vmtanzu.com/openso/spring-metal@sha256:bb5fb90b602faa24978721fd12f41c75256c2ff8dac63f7bcce7c23d5aed7828
+    packageRefName: spring-metal.apps.local
+    packageVersion: 20250303.1827.41047
+    summary: git:6132a9a @ 2025-03-03T18:27:41Z
+    version: 20250303.1827.41047
+  health:
+    maxUnavailableReplicas: 10%
+  image: harbor.vmtanzu.com/openso/spring-metal:20250303.1827.41047@sha256:0cadd7a243968bbb9ff96d4ef2fe925e985cac76cf90d54788664067ac2ecec1
+  nonSecretEnv:
+  - name: JAVA_TOOL_OPTIONS
+    value: -Dmanagement.endpoint.health.probes.add-additional-paths=true -Dmanagement.endpoints.web.exposure.include=health,info
+      -Dmanagement.health.probes.enabled=true -Dmanagement.info.build.enabled=true
+      -Dmanagement.info.git.enabled=true -Dmanagement.info.java.enabled=true -Dmanagement.info.os.enabled=true
+      -Dmanagement.info.process.enabled=true -Dmanagement.server.port=8081 -Dserver.port=8080
+      -Dserver.shutdown.grace-period=24s
+  ports:
+  - name: main
+    port: 8080
+    protocol: HTTP
+  probes:
+    liveness:
+      httpGet:
+        path: /livez
+        port: 8080
+        scheme: HTTP
+    readiness:
+      httpGet:
+        path: /readyz
+        port: 8080
+        scheme: HTTP
+    startup:
+      failureThreshold: 120
+      httpGet:
+        path: /readyz
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 1
+      periodSeconds: 1
+  relatedRefs:
+  - for: kubernetes.list-replicas
+    kind: Pod
+    labelSelector: containerapp.apps.tanzu.vmware.com/app-name=spring-metal
+  - apiGroup: apps
+    for: kubernetes.service-binding-target
+    kind: Deployment
+    name: spring-metal
+  - for: kubernetes.service-target
+    kind: Service
+    name: spring-metal
+  - for: kubernetes.scale-replicas
+    keyPath: .data['values.yml']->[yaml].replicas
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.scale-resources
+    keyPath: .data['values.yml']->[yaml].resources
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.set-secret-env
+    keyPath: .data['values.yml']->[yaml].secretEnv
+    kind: Secret
+    name: spring-metal-values
+  - apiGroup: packaging.carvel.dev
+    for: kubernetes.delete
+    kind: PackageInstall
+    name: spring-metal
+  - apiGroup: data.packaging.carvel.dev
+    for: kubernetes.delete
+    kind: Package
+    name: spring-metal.apps.local.20250303.1827.41047
+  - for: kubernetes.delete
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.set-content-hash
+    keyPath: .data['values.yml']->[yaml].contentHash
+    kind: Secret
+    name: spring-metal-values
+  - for: kubernetes.set-content-version
+    keyPath: .data['values.yml']->[yaml].contentVersion
+    kind: Secret
+    name: spring-metal-values
+  resources:
+    cpu: 300m
+    memory: 1Gi
